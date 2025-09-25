@@ -1,7 +1,7 @@
 package algorithms;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 import java.util.Arrays;
 
@@ -19,7 +19,7 @@ public class MergesortTest {
     }
 
     @Test
-    public void testEmpty() {
+    public void testEmptyArray() {
         int[] arr = {};
         int[] expected = {};
         MergeSort.sort(arr);
@@ -27,9 +27,17 @@ public class MergesortTest {
     }
 
     @Test
-    public void testSingle() {
+    public void testSingleElement() {
         int[] arr = {42};
         int[] expected = {42};
+        MergeSort.sort(arr);
+        assertArrayEquals(expected, arr);
+    }
+
+    @Test
+    public void testAlreadySorted() {
+        int[] arr = {1, 2, 3, 4, 5};
+        int[] expected = {1, 2, 3, 4, 5};
         MergeSort.sort(arr);
         assertArrayEquals(expected, arr);
     }
