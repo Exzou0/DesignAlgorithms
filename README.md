@@ -1,6 +1,7 @@
 # Algorithms Benchmark
 
-This repository contains three classic divide-and-conquer algorithms instrumented with metrics:
+This repository contains four classic divide-and-conquer algorithms instrumented with metrics:
+* **MergeSort** – classic merge sort.
 * **Quicksort** – random-pivot quicksort.
 * **DeterministicSelect** – median-of-medians selection.
 * **ClosestPair** – closest pair of points in the plane.
@@ -16,8 +17,13 @@ The benchmark runner records elapsed time in nanoseconds and writes results to `
 
 ## Recurrence Analysis
 
+**MergeSort.**  
+We recursively split the array into halves until single elements remain, then merge them back.  
+Recurrence *T(n)=2T(n/2)+Θ(n)* gives *Θ(n log n)* by the Master Theorem.  
+Depth is exactly *log₂ n*; allocations and copies happen mostly during merging.
+
 **Quicksort.**  
-We choose the pivot randomly and recurse on the smgit add README.mdaller partition iteratively. In expectation the recurrence is  
+We choose the pivot randomly and recurse on the smaller partition iteratively. In expectation the recurrence is  
 *T(n)=T(pn)+T((1−p)n)+Θ(n)* with *p≈1/2*, giving *Θ(n log n)*. In the worst case (rare with random pivot) depth reaches *Θ(n)*. Our depth metric shows how well the pivot choice balances.
 
 **DeterministicSelect.**  
@@ -34,4 +40,4 @@ Points are sorted once by *x* and *y*. Each step divides around the median x-coo
 ### Recursion Depth vs. n
 ![Depth](results/depth_vs_n.png)
 
-The plots confirm the theoretical shapes: quicksort and closest-pair scale as *n log n*, deterministic select is nearly linear. Depth stays logarithmic except for rare unbalanced quicksort pivots. Constant factors (e.g. copying arrays for ClosestPair, median sorting for Select) shift the curves but do not change asymptotic behaviour.
+The plots confirm the theoretical shapes: mergesort, quicksort and closest-pair scale as *n log n*, deterministic select is nearly linear. Depth stays logarithmic except for rare unbalanced quicksort pivots. Constant factors (e.g. copying arrays for ClosestPair, median sorting for Select) shift the curves but do not change asymptotic behaviour.
